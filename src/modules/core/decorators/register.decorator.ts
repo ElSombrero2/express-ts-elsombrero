@@ -23,9 +23,12 @@ export function Register(obj: RegisterArgs): ClassDecorator{
       const path = Reflect.getMetadata('custom:baseurl', constructor)
       const middlewares = Reflect.getMetadata('custom:middlewares', constructor)
       const instance = Container.get(constructor)
+      const msg = `----------------[Controller: ${constructor.name}]----------------`
+      console.log(`\x1b[34m${msg}\x1b[0m`)
       keys.map(async (key) => {
         const data: DataHttpType = Reflect.getMetadata(key, constructor)
         const fun = app[data.method] as Function
+        console.log(`\x1b[33m${data.method.toUpperCase()} ${path + data.url}\x1b[0m`)
         fun.apply(app, [path + data.url, ...middlewares, ...data.middlewares, async (req: Request, res: Response) => {
           try{
             const result: any | View = await data.callback.apply(instance, [{
@@ -49,6 +52,7 @@ export function Register(obj: RegisterArgs): ClassDecorator{
           }
         }])
       })
+      console.log(`\x1b[34m${'-'.repeat(msg.length)}\x1b[0m`)
     })
   }
 }

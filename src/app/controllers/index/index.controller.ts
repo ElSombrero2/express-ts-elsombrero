@@ -5,8 +5,13 @@ import { View } from "../../../modules/core/views";
 export class Index{
 
   @Get('')
-  public home(): View{
+  public index(): View{
     return new View('index.hbs', {name: 'ElSombrero'})
+  }
+
+  @Get('/find')
+  public find(): {name: string}{
+    return {name: 'Hello World'}
   }
 
 }

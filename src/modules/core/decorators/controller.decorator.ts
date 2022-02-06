@@ -19,7 +19,7 @@ export function Controller(url?: string, ...arg: Function[]): ClassDecorator{
   const service = Service()
   return function(constructor: any){
     service(constructor)
-    let path = url || '/'
+    let path = url || ''
     Reflect.defineMetadata('custom:baseurl', path, constructor)
     Reflect.defineMetadata('custom:middlewares', arg, constructor)
   }

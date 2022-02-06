@@ -12,10 +12,10 @@ const value = (url: string, callback: Function, method: string, middlewares: Fun
 }
 
 export function Get(url: string, ...args: Function[]): MethodDecorator{
-  return function(target: any, key: string | symbol){
+  return function(target: Object, key: string | symbol){
     Reflect.defineMetadata(`router:${key.toString()}`, 
     value(url, target[key], 'get', args), 
-    Object.getPrototypeOf(target))
+    target.constructor)
   }
 }
 
@@ -23,7 +23,7 @@ export function Post(url: string, ...args: Function[]): MethodDecorator{
   return function(target: any, key: string | symbol){
     Reflect.defineMetadata(`router:${key.toString()}`, 
     value(url, target[key], 'post', args), 
-    Object.getPrototypeOf(target))
+    target.constructor)
   }
 }
 
@@ -31,7 +31,7 @@ export function Put(url: string, ...args: Function[]): MethodDecorator{
   return function(target: any, key: string | symbol){
     Reflect.defineMetadata(`router:${key.toString()}`, 
     value(url, target[key], 'put', args), 
-    Object.getPrototypeOf(target))
+    target.constructor)
   }
 }
 
@@ -39,7 +39,7 @@ export function Patch(url: string, ...args: Function[]): MethodDecorator{
   return function(target: any, key: string | symbol){
     Reflect.defineMetadata(`router:${key.toString()}`, 
     value(url, target[key], 'patch', args), 
-    Object.getPrototypeOf(target))
+    target.constructor)
   }
 }
 
@@ -47,6 +47,6 @@ export function Delete(url: string, ...args: Function[]): MethodDecorator{
   return function(target: any, key: string | symbol){
     Reflect.defineMetadata(`router:${key.toString()}`, 
     value(url, target[key], 'delete', args), 
-    Object.getPrototypeOf(target))
+    target.constructor)
   }
 }
