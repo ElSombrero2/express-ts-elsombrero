@@ -1,11 +1,12 @@
 import { Index } from "./app/controllers/index/index.controller";
 import { Register } from "./modules/core/decorators";
 import { loadDB } from "./modules/database/database.module";
-import { bootstrap } from "./modules/server/server.module";
+import { app, bootstrap } from "./modules/server/server.module";
 
 @Register({
   controllers: [Index],
-  services: []
+  services: [],
+  context: app
 })
 export class Main{
 

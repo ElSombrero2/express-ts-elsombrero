@@ -1,13 +1,13 @@
 import 'reflect-metadata' 
-import { app } from '../../server/server.module'
 import { DataHttpType } from './http.decorator'
-import { Request, Response } from 'express'
+import { Application, Request, Response } from 'express'
 import { View } from '../views'
 import Container from 'typedi'
 
 interface RegisterArgs{
   controllers: any[],
-  services: any[]
+  services: any[],
+  context: Application
 }
 
 export function Register(obj: RegisterArgs): ClassDecorator{
@@ -27,9 +27,9 @@ export function Register(obj: RegisterArgs): ClassDecorator{
       console.log(`\x1b[34m${msg}\x1b[0m`)
       keys.map(async (key) => {
         const data: DataHttpType = Reflect.getMetadata(key, constructor)
-        const fun = app[data.method] as Function
+        const fun = obj.context[data.method] as Function
         console.log(`\x1b[33m${data.method.toUpperCase()} ${path + data.url}\x1b[0m`)
-        fun.apply(app, [path + data.url, ...middlewares, ...data.middlewares, async (req: Request, res: Response) => {
+        fun.apply(obj.context, [path + data.url, ...middlewares, ...data.middlewares, async (req: Request, res: Response) => {
           try{
             const result: any | View = await data.callback.apply(instance, [{
               request: (req as Request), 
