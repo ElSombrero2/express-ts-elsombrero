@@ -1,5 +1,4 @@
-import { Controller, Get } from "../../../modules/core/decorators";
-import { View } from "../../../modules/core/views";
+import { Controller, Get, View, HttpContext } from "elsombrero/core";
 
 @Controller()
 export class Index{
@@ -10,7 +9,7 @@ export class Index{
   }
 
   @Get('/find')
-  public find(): {name: string}{
+  public find(context: HttpContext): {name: string}{
     return {name: 'Hello World'}
   }
 

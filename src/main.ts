@@ -1,5 +1,5 @@
 import { Index } from "./app/controllers/index/index.controller";
-import { Register } from "./modules/core/decorators";
+import { Register } from "elsombrero/core";
 import { loadDB } from "./modules/database/database.module";
 import { app, bootstrap } from "./modules/server/server.module";
 
